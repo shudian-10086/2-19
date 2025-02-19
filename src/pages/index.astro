@@ -1,11 +1,405 @@
----
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragonsweeper - A Fresh Puzzle Adventure</title>
+    <meta name="description" content="Explore a fantasy world in Dragonsweeper, a free & fresh online puzzle game.">
+    <link rel="shortcut icon" href="https://www.playfiddlebops.com/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #e74c3c;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+            --font-family: 'Poppins', sans-serif;
+        }
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
----
+        body {
+            font-family: var(--font-family);
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-<Layout>
-	<Welcome />
-</Layout>
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .site-header {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .site-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .site-logo a {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Main Navigation Styles */
+        .main-nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-toggle {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            display: none; /* Hide by default on larger screens */
+        }
+
+        .main-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        .main-nav li {
+            margin-left: 15px;
+        }
+
+        .main-nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .main-nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Darkened background */
+            color: #fff;
+            z-index: 1000; /* Ensure it's on top */
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        .mobile-menu li {
+            margin: 20px 0;
+        }
+
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            padding: 30px 0;
+        }
+
+        .game-area {
+            margin-bottom: 30px;
+        }
+
+        .game-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .game-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .game-description {
+            margin-top: 20px;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        /* Footer Styles */
+        .site-footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+        }
+
+        .site-footer p {
+            margin: 0;
+            font-size: 1.0rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .site-header .container {
+                flex-direction: row; /* Restore row layout */
+                align-items: center; /* Align items vertically */
+            }
+
+            .site-logo {
+                margin-bottom: 0; /* Remove bottom margin */
+                text-align: left; /* Restore left alignment */
+            }
+
+            .main-nav {
+                order: 1; /* Move nav to the end */
+                margin-left: auto; /* Push to the right */
+            }
+
+            .nav-toggle {
+                display: block; /* Show on smaller screens */
+            }
+
+            .main-nav ul {
+                display: none; /* Hide the regular nav */
+            }
+        }
+
+        /* Fullscreen Styles */
+        .game-area {
+            position: relative;  /* Ensure proper positioning for button */
+        }
+
+        #fullscreenButton {
+            position: absolute;
+            top: 60px;
+            right: 0px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 2; /* Ensure it's above the iframe */
+        }
+
+        .fullscreen-enabled .game-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1001; /* Above mobile menu */
+            padding-bottom: 0; /* Remove aspect ratio padding */
+            border: none; /* Remove border */
+            background-color: #fff; /* Optional: Background color */
+        }
+
+        .fullscreen-enabled .game-wrapper iframe {
+            width: 100%;
+            height: 100%;
+        }
+
+        .exit-fullscreen-button {
+            position: absolute;
+            top: 60px;
+            right: 0px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1002; /* Above fullscreen content */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="site-logo">
+                <a href="/">Dragonsweeper</a>
+            </div>
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#how-to-play">How to Play</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <span class="close-btn">×</span>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#how-to-play">How to Play</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+
+            <section class="game-area">
+                <h2>Play Dragonsweeper</h2>
+                <div class="game-wrapper">
+                    <iframe src="https://dragonsweeper.netlify.app/" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <button id="fullscreenButton">Fullscreen</button>
+                <p class="game-description">
+                    Dragonsweeper is a fresh take on the classic Minesweeper puzzle game, set in a whimsical fantasy world. Uncover hidden treasures while avoiding fearsome dragons. Exercise your mind with strategic gameplay and challenge your luck!
+                </p>
+                <button class="exit-fullscreen-button" style="display:none;">Exit Fullscreen</button> <!-- Exit button -->
+            </section>
+
+            <section id="about">
+                <h2>About Dragonsweeper</h2>
+                <p>Dragonsweeper combines the addictive logic of Minesweeper with a vibrant fantasy theme. Each game presents a unique challenge, requiring careful planning and a bit of luck to navigate the treacherous landscape.</p>
+                <p>Developed by Daniel Benmergui, Dragonsweeper offers a delightful experience for puzzle enthusiasts of all skill levels. Explore the enchanting world, test your limits, and become a Dragonsweeper master!</p>
+                <p>Features include:</p>
+                <ul>
+                    <li>Strategic gameplay, where every step counts</li>
+                    <li>Minesweeper reimagined in a fantasy world</li>
+                    <li>Multiple difficulty levels to challenge your limits</li>
+                    <li>Beautiful visuals and sound effects</li>
+                </ul>
+            </section>
+
+            <section id="how-to-play">
+                <h2>How to Play</h2>
+                <ol>
+                    <li>Click on any square to reveal what's underneath.</li>
+                    <li>Numbers indicate how many dragons surround the square.</li>
+                    <li>Use flags to mark suspected dragon locations.</li>
+                    <li>Uncover all treasures and avoid the dragons to win!</li>
+                </ol>
+                <p>Dragonsweeper is easy to learn but challenging to master. Practice your skills and strategize to clear the levels and earn rewards!</p>
+            </section>
+
+            <section id="contact">
+                <h2>Contact Us</h2>
+                <p>Have questions or feedback? Reach out to us at <a href="mailto:support@example.com">support@example.com</a>.</p>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 Dragonsweeper. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const closeBtn = document.querySelector('.mobile-menu .close-btn');
+    const fullscreenButton = document.getElementById("fullscreenButton");
+    const gameWrapper = document.querySelector(".game-wrapper");
+    const exitFullscreenButton = document.querySelector(".exit-fullscreen-button");
+
+    navToggle.addEventListener('click', () => {
+        mobileMenu.style.display = 'flex'; // Show the mobile menu
+    });
+
+    closeBtn.addEventListener('click', () => {
+        mobileMenu.style.display = 'none'; // Hide the mobile menu
+    });
+
+    // Fullscreen functionality
+    fullscreenButton.addEventListener("click", () => {
+        if (!document.fullscreenElement) {
+            // Enter fullscreen
+            gameWrapper.classList.add("fullscreen-enabled"); // Apply styles to gameWrapper
+            fullscreenButton.style.display = "none"; // Hide button
+            exitFullscreenButton.style.display = "block";  // Show exit button
+
+            if (gameWrapper.requestFullscreen) {
+                gameWrapper.requestFullscreen();
+            } else if (gameWrapper.mozRequestFullScreen) { /* Firefox */
+                gameWrapper.mozRequestFullScreen();
+            } else if (gameWrapper.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                gameWrapper.webkitRequestFullscreen();
+            } else if (gameWrapper.msRequestFullscreen) { /* IE/Edge */
+                gameWrapper.msRequestFullscreen();
+            }
+        } else {
+            // Exit fullscreen
+            exitFullscreen();
+        }
+    });
+
+    exitFullscreenButton.addEventListener("click", exitFullscreen);
+
+    function exitFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+        }
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) {
+            gameWrapper.classList.remove("fullscreen-enabled");
+            fullscreenButton.style.display = "block"; // Show button
+            exitFullscreenButton.style.display = "none"; // Hide exit button
+        } else {
+            fullscreenButton.style.display = "none"; // Hide button
+            exitFullscreenButton.style.display = "block";  // Show exit button
+        }
+    });
+</script>
+
+</body>
+</html>
