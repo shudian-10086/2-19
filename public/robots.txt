@@ -1,0 +1,8 @@
+User-agent: *
+
+Allow: /
+
+Disallow: *terms-of-service
+Disallow: *privacy
+
+Sitemap: https://www.dragonsweepers.net/sitemap.xml

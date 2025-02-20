@@ -1,0 +1,231 @@
+---
+import "../style/base.css";
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Dragon Sweeper</title> 
+    <meta name="robots" content="index, nofollow">
+    <link rel="shortcut icon" href="https://www.dragonsweepers.net/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"> 
+    <link rel="canonical" href="https://www.dragonsweepers.net/"/>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <div class="site-logo">
+                <a href="/">Dragon Sweeper</a>
+            </div>
+            <nav class="main-nav">
+                <button class="nav-toggle" aria-label="Toggle Navigation"><i class="fas fa-bars"></i></button>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/#how-to-play">How to Play</a></li>
+                    <li><a href="/#contact">Contact</a></li>
+                </ul>
+            </nav>
+      <select style="margin-left:40px;">
+        <option data-lang="en" data-url="/terms-of-service">English</option>
+        <option data-lang="ja" data-url="/ja/terms-of-service">日本語</option>
+        </select>
+        </div>
+    </header>
+
+    <div class="mobile-menu">
+        <span class="close-btn">×</span>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#how-to-play">How to Play</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+
+
+    <h2>Terms of Service</h2>
+    <p><em>Effective Date: February 19, 2025</em></p>
+
+    <h3>1. Service Description</h3>
+    <ul>
+        <li>This website provides <span class="highlight">entirely free</span> web-based games with the following features:
+            <ul>
+                <li>❌ No user registration/login system</li>
+                <li>❌ No payment transactions or virtual currency</li>
+                <li>❌ No social interaction features</li>
+                <li>❌ No data collection practices</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>2. Acceptable Use</h3>
+    <ul>
+        <li>Users shall not:
+            <ul>
+                <li>🔒 Attempt to decompile, reverse engineer, or modify game code</li>
+                <li>🖥️ Utilize automated scripts for non-human interactions</li>
+                <li>⚖️ Exploit game content for commercial purposes</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>3. Disclaimer of Warranties</h3>
+    <ul>
+        <li>Services are provided <span class="highlight">"as is" and "as available"</span> without warranties of:
+            <ul>
+                <li>⏱️ Continuous availability</li>
+                <li>🛡️ Complete absence of errors or vulnerabilities</li>
+                <li>💻 Compatibility with all devices</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>4. Intellectual Property Rights</h3>
+    <ul>
+        <li>You are granted:
+            <ul>
+                <li>✅ Non-exclusive access via standard web browsers</li>
+                <li>✅ Permission to share game page links</li>
+            </ul>
+        </li>
+        <li>You are prohibited from:
+            <ul>
+                <li>🚫 Reverse engineering or modifying source code</li>
+                <li>🚫 Embedding content into third-party platforms</li>
+                <li>🚫 Claiming ownership of game assets</li>
+            </ul>
+        </li>
+    </ul>
+
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© 2025 Dragon Sweeper. All rights reserved.</p>
+        </div>
+    </footer>
+
+<script>
+    const navToggle = document.querySelector('.nav-toggle');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const closeBtn = document.querySelector('.mobile-menu .close-btn');
+
+    navToggle.addEventListener('click', () => {
+        mobileMenu.style.display = 'flex'; // Show the mobile menu
+    });
+
+    closeBtn.addEventListener('click', () => {
+        mobileMenu.style.display = 'none'; // Hide the mobile menu
+    });
+</script>
+    <script>
+      function goToLink(event) {
+        const select = event.target;
+        const selectedOption = select.options[select.selectedIndex];
+        const url = selectedOption.getAttribute('data-url');
+        if (url) {
+          window.location.href = url;
+        }
+      }
+  
+      // Add event listener
+      document.addEventListener('DOMContentLoaded', () => {
+        const select = document.querySelector('select');
+        if (select) {
+          select.addEventListener('change', goToLink);
+  
+          // Set current language based on the <html> tag's lang attribute
+          const htmlLang = document.documentElement.lang;
+          const options = Array.from(select.options);
+  
+          // Try to find an option that exactly matches the lang attribute
+          const currentOption = options.find(option =>
+            option.getAttribute('data-lang') === htmlLang
+          );
+  
+          if (currentOption) {
+            currentOption.selected = true;
+          } else {
+            // If no exact match is found, try to find a default option (data-lang="en" or "/")
+            let defaultOption = options.find(option =>
+              option.getAttribute('data-lang') === 'en' // common default
+            );
+  
+            if (!defaultOption) {
+              defaultOption = options.find(option =>
+                option.getAttribute('data-lang') === '/' // older convention
+              );
+            }
+  
+  
+            if (defaultOption) {
+              defaultOption.selected = true;
+            }
+          }
+        }
+      });
+      </script>
+<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_default_style" data-a2a-scroll-show="0,60" style="bottom:0px; right:0px;">
+
+<a class="a2a_button_x"></a>
+<a class="a2a_button_reddit"></a>
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_telegram"></a>
+<a class="a2a_button_whatsapp"></a>
+<a class="a2a_button_linkedin"></a>
+    <a class="a2a_dd" href="https://www.dragonsweepers.net/"></a>
+</div>
+
+<div class="a2a_kit a2a_kit_size_32 a2a_floating_style a2a_vertical_style" style="left:0px; top:150px;">
+<a class="a2a_button_x"></a>
+<a class="a2a_button_reddit"></a>
+<a class="a2a_button_facebook"></a>
+<a class="a2a_button_telegram"></a>
+<a class="a2a_button_whatsapp"></a>
+<a class="a2a_button_linkedin"></a>
+    <a class="a2a_dd" href="https://www.dragonsweepers.net/"></a>
+</div>
+
+<script defer src="https://static.addtoany.com/menu/page.js"></script>
+</body>
+</html>
