@@ -5,4 +5,4 @@ Allow: /
 Disallow: *terms-of-service
 Disallow: *privacy
 
-Sitemap: https://www.dragonsweepers.net/sitemap.xml
+Sitemap: https://www.dragon-sweeper.org/sitemap.xml
