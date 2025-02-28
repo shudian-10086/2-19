@@ -2,7 +2,4 @@ User-agent: *
 
 Allow: /
 
-Disallow: *terms-of-service
-Disallow: *privacy
-
 Sitemap: https://dragon-sweeper.org/sitemap.xml
